@@ -38,7 +38,6 @@ public class ShowUpdatePage extends HttpServlet {
         String url=UPDATE_PAGE;
         try {
             BookDTO book= dao.getBookDetail_byId(id);
-            System.out.println("id:"+book.getId());
             request.setAttribute("BOOK_DETAIL", book);
         } catch (Exception ex) {
             log("ShowUpdatePage_Servlet: "+ex.getMessage());

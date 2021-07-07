@@ -43,12 +43,12 @@ public class LoginController extends HttpServlet {
         String username= request.getParameter("txtUsername");
         String password= request.getParameter("txtPassword");
         try {
-            System.out.println("LoginCOntroller");
+            System.out.println("LoginController");
             RegistrationDAO dao = new RegistrationDAO();
             RegistrationDTO result= dao.checkLogin(username, password);
             if(result !=null){
                 HttpSession session= request.getSession();
-                session.setAttribute("USER", result);
+                session.setAttribute("NAME", result);
                 url=LOAD_CONTROL;
             }
         } catch (Exception e) {

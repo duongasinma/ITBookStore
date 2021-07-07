@@ -43,12 +43,6 @@ public class LoadAllBookController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = HOME_PAGE;
         
-        HttpServletRequest req = (HttpServletRequest) request;
-        String uri = req.getRequestURI();
-        System.out.println(uri);
-        System.out.println(uri.lastIndexOf("/"));
-        System.out.println(uri.substring(11));
-        
         HttpSession session = request.getSession();
         RegistrationDTO reg = (RegistrationDTO) session.getAttribute("NAME");
         try {
