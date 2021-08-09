@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import utilities.MyConnection;
 
 /**
  *
@@ -54,6 +55,38 @@ public class RegistrationDAO implements Serializable{
             }
         }
         return null;
+    }
+    public boolean insertAccount(RegistrationDTO dto) throws SQLException, ClassNotFoundException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        int row = 0;
+        try {
+            con = MyConnection.getMyConnection();
+            if (con != null) {
+                String sql = "insert into Registration(username, password, lastname, phone, address, isAdmin) values(?,?,?,?,?,?)";
+                stm = con.prepareStatement(sql);
+                stm.setString(1, dto.getUsername());
+                stm.setString(2, dto.getPassword());
+                stm.setString(3, dto.getLastname());
+                stm.setString(4, dto.getPhone());
+                stm.setString(5, dto.getAddress());              
+                stm.setBoolean(6, dto.isIsAdmin());
+                row = stm.executeUpdate();
+                if (row > 0) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return false;
     }
     
 }

@@ -20,7 +20,7 @@ import javax.naming.NamingException;
  * @author DUONGAS
  */
 public class OrderDAO {
-    public String getPreviousOrderId() throws SQLException, NamingException {
+    public int getPreviousOrderId() throws SQLException, NamingException {
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -32,7 +32,7 @@ public class OrderDAO {
                 stm = conn.prepareStatement(sql);
                 rs = stm.executeQuery();
                 if (rs.next()) {
-                    String id = rs.getString("orderId");
+                    int id = rs.getInt("orderId");
                     return id;
                 }
             } //end if con is opened
@@ -50,10 +50,10 @@ public class OrderDAO {
             }
         }
 
-        return null;
+        return 0;
     }
 
-    public boolean insertOrder(String id, String user, String address, String phone, String date, double total) throws SQLException, NamingException {
+    public boolean insertOrder(int id, String user, String address, String phone, String date, double total) throws SQLException, NamingException {
         Connection conn = null;
         PreparedStatement stm = null;
         int row = 0;
@@ -65,7 +65,7 @@ public class OrderDAO {
                 String sql = "insert into Orders(orderId, userId, total, orderAddress, orderPhone, orderDate) values(?,?,?,?,?,?)";
                 //3 create stm and assgin
                 stm = conn.prepareStatement(sql);
-                stm.setString(1, id);
+                stm.setInt(1, id);
                 stm.setString(2, user);
                 stm.setDouble(3, total);
                 stm.setString(4, address);
@@ -106,7 +106,7 @@ public class OrderDAO {
                 //3 create stm and assgin
                 stm = con.prepareStatement(sql);
                 stm.setString(1, dto.getDetailId());  
-                stm.setString(2, dto.getOrderId());  
+                stm.setInt(2, dto.getOrderId());  
                 stm.setString(3, dto.getBookId());
                 stm.setDouble(4, dto.getPrice());
                 stm.setInt(5, dto.getQuantity());
@@ -157,7 +157,7 @@ public class OrderDAO {
                 stm.setString(1, username);
                 rs = stm.executeQuery();
                 while (rs.next()) {
-                    String id = rs.getString("orderId");
+                    int id = rs.getInt("orderId");
                     String user = rs.getString("userId");
                     String add = rs.getString("orderAddress");
                     String phone = rs.getString("orderPhone");
@@ -184,7 +184,7 @@ public class OrderDAO {
             }
         }
     }
-public void getListOrderDetail(String orderId) throws SQLException, ClassNotFoundException {
+public void getListOrderDetail(int orderId) throws SQLException, ClassNotFoundException {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -193,12 +193,12 @@ public void getListOrderDetail(String orderId) throws SQLException, ClassNotFoun
             if (con != null) {
                 String sql = "Select detailId, orderId, bookId, price, quantity, bookTitle, bookImg From OrderDetail Where orderId=?";
                 stm = con.prepareStatement(sql);
-                stm.setString(1, orderId);
+                stm.setInt(1, orderId);
                 rs = stm.executeQuery();
                 while (rs.next()) {
                     String detailId = rs.getString("detailId");
                     String book = rs.getString("bookId");
-                    String order = rs.getString("orderId");                   
+                    int order = rs.getInt("orderId");                   
                     double price = rs.getDouble("price");
                     int quantity = rs.getInt("quantity");
                     String title = rs.getString("bookTitle");

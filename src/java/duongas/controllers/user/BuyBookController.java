@@ -83,12 +83,11 @@ public class BuyBookController extends HttpServlet {
             }
             if (check) {
                 OrderDAO orderDao = new OrderDAO();
-                String orderId = orderDao.getPreviousOrderId();
-                if (orderId == null) {
-                    orderId = "1";
+                int orderId = orderDao.getPreviousOrderId();
+                if (orderId == 0) {
+                    orderId = 1;
                 } else {
-                    int id = Integer.parseInt(orderId) + 1;
-                    orderId = String.valueOf(id);
+                    orderId = orderId + 1;                  
                 }
                 SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
                 Date date = new Date();

@@ -28,6 +28,16 @@ public class RegistrationDTO {
         this.phone = phone;
         this.isAdmin = isAdmin;
     }
+
+    public RegistrationDTO(String username, String password, String lastname, String address, String phone, boolean isAdmin) {
+        this.username = username;
+        this.password = password;
+        this.lastname = lastname;
+        this.address = address;
+        this.phone = phone;
+        this.isAdmin = isAdmin;
+    }
+    
     
 
     public String getUsername() {

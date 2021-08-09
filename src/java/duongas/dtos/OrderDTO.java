@@ -12,10 +12,11 @@ import java.io.Serializable;
  * @author DUONGAS
  */
 public class OrderDTO implements Serializable{
-    private String orderId, userId, address, phone, date;
+    private int orderId;
+    private String  userId, address, phone, date;
     private double total ;
 
-    public OrderDTO(String orderId, String userId, String address, String phone, double total, String date) {
+    public OrderDTO(int orderId, String userId, String address, String phone, double total, String date) {
         this.orderId = orderId;
         this.userId = userId;
         this.address = address;
@@ -24,11 +25,11 @@ public class OrderDTO implements Serializable{
         this.date = date;
     }
 
-    public String getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 

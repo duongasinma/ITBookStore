@@ -36,7 +36,7 @@ public class ShowOrderDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String orderid= request.getParameter("txtOrderId");
+        int orderid= Integer.parseInt(request.getParameter("txtOrderId"));
         System.out.println("Order id: "+orderid);
         try {
             OrderDAO dao =new OrderDAO();

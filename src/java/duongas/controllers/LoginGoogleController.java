@@ -9,9 +9,6 @@ import duongas.daos.RegistrationDAO;
 import duongas.dtos.RegistrationDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,10 +20,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author DUONGAS
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "LoginGoogleController", urlPatterns = {"/LoginGoogleController"})
+public class LoginGoogleController extends HttpServlet {
     private final String LOAD_CONTROL="LoadAllBookController";
-    private final String ERROR_PAGE="login.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,25 +35,22 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url=ERROR_PAGE;
-        String username= request.getParameter("txtUsername");
-        String password= request.getParameter("txtPassword");
-        try {
-            RegistrationDAO dao = new RegistrationDAO();
-            RegistrationDTO result= dao.checkLogin(username, password);
-            HttpSession session= request.getSession();
-            if(result !=null){
-                session.setAttribute("NAME", result);
-                url=LOAD_CONTROL;
-            }
-            else{
-                request.setAttribute("LOGIN_INVALID", "User name or password is invalid");
-                url = ERROR_PAGE;
-            }
+        String url = LOAD_CONTROL;
+        String username = request.getParameter("txtUsername");
+        String lastname = request.getParameter("txtLastname");
+        RegistrationDAO dao = new RegistrationDAO();
+        try {           
+            RegistrationDTO result = dao.checkLogin(username, "123");
+            HttpSession session = request.getSession();
+            if (result == null) {
+                RegistrationDTO dto = new RegistrationDTO(username, "123", lastname, "", "", false);
+                dao.insertAccount(dto);
+                result = dao.checkLogin(username, "123");
+            } 
+            session.setAttribute("NAME", result);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

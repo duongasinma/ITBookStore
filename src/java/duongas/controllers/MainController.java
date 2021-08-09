@@ -21,6 +21,7 @@ public class MainController extends HttpServlet {
     private final String LOAD_CONTROLLER="LoadAllBookController";
     private final String HOME_PAGE = "home.jsp";
     private final String LOGIN_CONTROLLER = "LoginController";
+    private final String LOGIN_GG_CONTROLLER = "LoginGoogleController";
     private final String LOGOUT_CONTROLLER = "LogoutController";
     private final String SEARCH_CONTROLLER = "SearchController";
     private final String ADD_BOOK_CONTROLLER="AddBookController";
@@ -58,6 +59,9 @@ public class MainController extends HttpServlet {
         try{
             if(button.equals("login")){
                 url=LOGIN_CONTROLLER;
+            }
+            if(button.equals("loginGG")){
+                url=LOGIN_GG_CONTROLLER;
             }
             if(button.equals("logout")){
                 url=LOGOUT_CONTROLLER;

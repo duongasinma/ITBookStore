@@ -10,11 +10,12 @@ package duongas.dtos;
  * @author DUONGAS
  */
 public class OrderDetailDTO {
-    private String detailId, orderId, bookId, bookTitle, bookImg;
+    private int orderId;
+    private String detailId, bookId, bookTitle, bookImg;
     private double price;
     private int quantity;
 
-    public OrderDetailDTO(String detailId, String orderId, String bookId, double price, int quantity) {
+    public OrderDetailDTO(String detailId, int orderId, String bookId, double price, int quantity) {
         this.detailId = detailId;
         this.orderId = orderId;
         this.bookId = bookId;
@@ -22,7 +23,7 @@ public class OrderDetailDTO {
         this.quantity = quantity;
     }
 
-    public OrderDetailDTO(String detailId, String orderId, String bookId, String bookTitle, String bookImg, double price, int quantity) {
+    public OrderDetailDTO(String detailId, int orderId, String bookId, String bookTitle, String bookImg, double price, int quantity) {
         this.detailId = detailId;
         this.orderId = orderId;
         this.bookId = bookId;
@@ -41,11 +42,11 @@ public class OrderDetailDTO {
         this.detailId = detailId;
     }
 
-    public String getOrderId() {
+    public int getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
 
